@@ -3930,6 +3930,9 @@ textarea.form-control-lg {
   border: 0;
   border-radius: 0.25rem;
 }
+
+
+
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
@@ -3953,6 +3956,8 @@ textarea.form-control-lg {
 .nav-justified .nav-item .nav-link {
   width: 100%;
 }
+
+
 
 .tab-content > .tab-pane {
   display: none;
@@ -4015,6 +4020,11 @@ textarea.form-control-lg {
   flex-grow: 1;
   align-items: center;
 }
+.nav-pills .nav-link:active {
+    background-color: black; /* Tıklandığında arka planı siyah yap */
+    color: white; /* Metni beyaz yap */
+}
+
 
 .navbar-toggler {
   padding: 0.25rem 0.75rem;

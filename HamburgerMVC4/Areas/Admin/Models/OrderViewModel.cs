@@ -8,6 +8,7 @@ namespace HamburgerMVC4.Areas.Admin.Models
         public int MenuId { get; set; }      
 
         public int OrderId { get; set; }
+
         [Required]
         public int DrinkId { get; set; }
 

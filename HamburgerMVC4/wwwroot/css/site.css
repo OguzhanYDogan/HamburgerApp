@@ -66,6 +66,7 @@ body {
 .nav-link {  
     color: antiquewhite;
 }
+
 .nav-link:hover{
     color:orange;
 }

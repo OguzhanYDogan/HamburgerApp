@@ -3,9 +3,8 @@
     int selectedMenu = @ViewBag.Menu[0].Id;
 
 }
-<div class="container">
-
-    <h2 class="detail-card"> Do you confirm your order ? </h2>
+<div class="container my-5">
+    <div class="detail-card d-flex justify-content-center"><h2> Do you confirm your order ? </h2></div>
     <form asp-action="OrderSummary" method="post">
         <div class="row d-flex justify-content-center">
             <div class="col-sm-12 col-md-9 col-lg-8 text-center">

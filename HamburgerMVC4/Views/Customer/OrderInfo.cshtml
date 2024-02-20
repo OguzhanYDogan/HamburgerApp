@@ -1,4 +1,5 @@
 ﻿@model List<Order>
+
 @if (Model.Count > 0)
 {
     <hr />
@@ -9,21 +10,29 @@
                     My Order Details
                 </h1>
             </div>
+            <div aria-label="Page navigation example" class="d-flex justify-content-center">
+                <ul class="pagination">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <a class="btn btn-danger m-1" href="@Url.Action("OrderInfo", new { page = i })">@ViewBag.DistinctDates[i - 1].ToShortDateString() </a>
+                    }
+                </ul>
+            </div>
             <div class=" col-md-12 text-center" style="font-size: 2rem">
                 <div style="margin-top:30px">
                     @foreach (var item in Model)
-                    {               
+                    {
+                        <hr />
+                        @if (item == Model[0])
+                        {
+                            <span style="color: darkred; font-size:3rem; font-family: Kristi">Latest order</span>
                             <hr />
-                            @if (item == Model[0])
-                            {
-                                <span style="color: darkred; font-size:3rem; font-family: Kristi">Latest order</span>
-                                <hr />
-                            }
-                            <p><span> </span> @item.Menu.Name (@item.Size)</p>
-                            <p>@item.Drink.Name</p>
-                            <p>@string.Join(" , ", item.Extras.Select(x => x.Name))</p>
-                            <p>@item.Date.ToShortDateString() </p>
-                            <p>@item.Price.ToString("c2")</p>
+                        }
+                        <p><span> </span> @item.Menu.Name (@item.Size)</p>
+                        <p>@item.Drink.Name</p>
+                        <p>@string.Join(" , ", item.Extras.Select(x => x.Name))</p>
+                        <p>@item.Date.ToShortDateString() </p>
+                        <p>@item.Price.ToString("c2")</p>
                     }
                 </div>
             </div>

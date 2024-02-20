@@ -144,10 +144,38 @@ namespace HamburgerMVC4.Controllers
             return View(orders);
         }
 
-        public IActionResult OrderInfo()
+        public IActionResult OrderInfo(int page = 1)
         {
-            var list = _db.Orders.Include(a => a.Menu).Include(a => a.Extras).Include(a => a.Drink).Include(a => a.User).Where(a => a.UserId == _userManager.GetUserId(User)).OrderByDescending(a => a.Id).ToList();
-            return View(list);
+            List<DateTime> dates = new();
+
+            var distinctDates = _db.Orders
+                .Where(a => a.UserId == _userManager.GetUserId(User))
+                .Select(x => x.Date)
+                .Distinct()
+                .OrderByDescending(x => x.Date)
+                .ToList();
+
+            int numberOfDistinctDates = distinctDates.Count;
+      
+
+            if(_db.Orders.Include(a=>a.User).Where(a => a.UserId == _userManager.GetUserId(User)).ToList() != null)
+            {
+                var pagedItemList = _db.Orders.Include(a => a.Menu).Include(a => a.Extras).Include(a => a.Drink).Include(a => a.User).Where(a => a.UserId == _userManager.GetUserId(User)).Where(x => x.Date == distinctDates[page - 1].Date).OrderByDescending(a => a.Id).ToList();
+
+                foreach (var i in distinctDates)
+                {
+                    dates.Add(i.Date);
+                }
+                ViewBag.PageNumber = page;
+                ViewBag.TotalPages = numberOfDistinctDates;
+                ViewBag.DistinctDates = dates;
+
+                return View(pagedItemList);
+
+            }                
+
+           return View(_db.Orders.Include(a => a.User).Where(a => a.UserId == _userManager.GetUserId(User)).ToList());
         }
+
     }
 }
